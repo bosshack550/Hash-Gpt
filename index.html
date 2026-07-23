@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hash GPT</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+<div class="brand">
+
+<h1>⚡ Hash GPT</h1>
+
+<p>Crypt Hashir AI</p>
+
+</div>
+
+
+<button class="new-chat" onclick="newChat()">
++ New Chat
+</button>
+
+
+<div class="side-menu">
+
+<button onclick="toggleSettings()">
+⚙ Settings
+</button>
+
+<button onclick="clearChat()">
+🗑 Clear Chat
+</button>
+
+<button onclick="exportChat()">
+📥 Export Chat
+</button>
+
+</div>
+
+
+<div class="info">
+
+<p>AI Modes</p>
+
+<span>General</span>
+<span>Coding</span>
+<span>Cyber Security</span>
+<span>Business</span>
+<span>Student</span>
+
+</div>
+
+
+</aside>
+
+
+
+<!-- MAIN AREA -->
+
+<main class="main">
+
+
+<header class="header">
+
+
+<div>
+
+<h2 id="aiTitle">
+Hash GPT
+</h2>
+
+<p id="status">
+● Online
+</p>
+
+</div>
+
+
+
+<div class="header-buttons">
+
+<button onclick="toggleSidebar()">
+☰
+</button>
+
+
+<button onclick="toggleTheme()">
+🌙
+</button>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+<!-- CHAT AREA -->
+
+<div id="chatBox">
+
+
+<div class="welcome">
+
+<h2>
+Welcome to Hash GPT 👋
+</h2>
+
+
+<p>
+Your AI assistant for coding, cybersecurity,
+business and learning.
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- INPUT AREA -->
+
+
+<div class="input-area">
+
+
+<button onclick="document.getElementById('file').click()">
+📎
+</button>
+
+
+<input 
+type="file"
+id="file"
+hidden
+>
+
+
+
+<button onclick="voiceInput()">
+🎤
+</button>
+
+
+
+<textarea 
+id="messageInput"
+placeholder="Message Hash GPT..."
+rows="1">
+</textarea>
+
+
+
+<button 
+class="send"
+onclick="sendMessage()">
+➤
+</button>
+
+
+</div>
+
+
+
+</main>
+
+
+
+
+
+<!-- SETTINGS PANEL -->
+
+
+<div class="settings" id="settings">
+
+
+<h2>
+⚙ Settings
+</h2>
+
+
+<label>
+AI Name
+</label>
+
+
+<input 
+id="aiName"
+value="Hash GPT"
+>
+
+
+
+<label>
+Personality
+</label>
+
+
+<select id="personality">
+
+
+<option>
+General AI
+</option>
+
+
+<option>
+Cyber Security Expert
+</option>
+
+
+<option>
+Coding Expert
+</option>
+
+
+<option>
+Business Advisor
+</option>
+
+
+<option>
+Student Tutor
+</option>
+
+
+</select>
+
+
+
+<label>
+Model
+</label>
+
+
+<select id="model">
+
+
+<option>
+openai/gpt-4o-mini
+</option>
+
+
+<option>
+deepseek/deepseek-chat
+</option>
+
+
+<option>
+google/gemini
+</option>
+
+
+</select>
+
+
+
+<button onclick="saveSettings()">
+Save
+</button>
+
+
+<button onclick="toggleSettings()">
+Close
+</button>
+
+
+  </div>
+
+  <!-- MESSAGE TEMPLATE AREA -->
+
+<template id="userTemplate">
+
+<div class="message user">
+
+<div class="avatar">
+👤
+</div>
+
+<div class="content"></div>
+
+</div>
+
+</template>
+
+
+
+<template id="aiTemplate">
+
+<div class="message ai">
+
+<div class="avatar">
+🤖
+</div>
+
+<div class="content"></div>
+
+</div>
+
+</template>
+
+
+
+
+
+<!-- LOADING -->
+
+<div id="loader" class="loader">
+
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+
+
+</div>
+
+
+
+<!-- JAVASCRIPT FILES -->
+
+<script src="config.js"></script>
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
