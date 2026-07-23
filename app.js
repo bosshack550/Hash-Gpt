@@ -6,12 +6,8 @@
 
 // OpenRouter Settings
 
-const API_KEY = "YOUR_OPENROUTER_API_KEY";
-const MODEL_ID = "YOUR_MODEL_ID";
-
-const API_URL =
-"https://openrouter.ai/api/v1/chat/completions";
-
+const API_KEY = "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";
+const MODEL_ID = "google/gemma-4-31b-it:free";
 
 
 // Elements
