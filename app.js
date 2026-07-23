@@ -7,7 +7,7 @@ const API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 const API_KEY = "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";
 
-const MODEL_ID = "poolside/laguna-s-2.1:free";
+const MODEL_ID = "openai/gpt-oss-20b:free";
 
 // Elements
 
