@@ -163,6 +163,7 @@ body{
 
     display:flex;
     height:100vh;
+    overflow:hidden;
 
 }
 
@@ -294,6 +295,7 @@ body{
     display:flex;
     flex-direction:column;
     position:relative;
+    height:100vh;
 
 }
 
@@ -430,9 +432,9 @@ body{
     flex:1;
     overflow-y:auto;
     padding:25px;
+    min-height:0;
 
 }
-
 
 
 .message{
