@@ -1,155 +1,470 @@
-const chatBox = document.getElementById("chatBox");
-const input = document.getElementById("messageInput");
+// ===============================
+// HASH GPT APP.JS
+// Powered By Crypt Hashir
+// ===============================
 
 
-// SEND MESSAGE
+// OpenRouter Settings
 
-async function sendMessage(){
+const API_KEY = "YOUR_OPENROUTER_API_KEY";
+const MODEL_ID = "YOUR_MODEL_ID";
 
-    let text = input.value.trim();
-
-    if(!text) return;
-
-
-    addMessage(text,"user");
-
-    input.value="";
-
-
-    let loading = addMessage(
-        "Thinking...",
-        "ai"
-    );
-
-
-    try{
-
-
-        let response = await fetch(
-        "https://openrouter.ai/api/v1/chat/completions",
-        {
-
-        method:"POST",
-
-        headers:{
-
-        "Content-Type":"application/json",
-
-        "Authorization":
-        "Bearer "+AI_CONFIG.API_KEY
-
-        },
-
-
-        body:JSON.stringify({
-
-        model:AI_CONFIG.MODEL,
-
-
-        messages:[
-
-        {
-        role:"system",
-        content:
-        "You are Hash GPT, an advanced AI assistant for coding, cybersecurity, business, education and general questions."
-        },
-
-
-        {
-        role:"user",
-        content:text
-        }
-
-        ]
-
-
-        })
-
-
-        });
-
-
-        let data = await response.json();
-
-
-        loading.remove();
-
-
-        if(data.choices){
-
-        addMessage(
-        data.choices[0].message.content,
-        "ai"
-        );
-
-        }
-
-        else{
-
-        addMessage(
-        "API Error. Check API key or credits.",
-        "ai"
-        );
-
-        }
+const API_URL =
+"https://openrouter.ai/api/v1/chat/completions";
 
 
 
-    }
+// Elements
 
-    catch(error){
+const messages =
+document.getElementById("messages");
 
-        loading.remove();
+const input =
+document.getElementById("userInput");
 
-        addMessage(
-        "Connection error: "+error.message,
-        "ai"
-        );
+const sendBtn =
+document.getElementById("sendButton");
 
-    }
+const typing =
+document.getElementById("typing");
+
+const welcome =
+document.getElementById("welcome");
+
+const sidebar =
+document.getElementById("sidebar");
+
+const menuBtn =
+document.getElementById("menuButton");
+
+const closeSidebar =
+document.getElementById("closeSidebar");
+
+const overlay =
+document.getElementById("overlay");
+
+const themeBtn =
+document.getElementById("themeButton");
+
+const darkBtn =
+document.getElementById("darkTheme");
+
+const lightBtn =
+document.getElementById("lightTheme");
+
+const newChat =
+document.getElementById("newChat");
+
+
+
+
+// State
+
+let isGenerating = false;
+
+let chatHistory = [];
+
+
+
+
+// ===============================
+// LOADING SCREEN
+// ===============================
+
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+document.getElementById("loader")
+.style.display="none";
+
+},3000);
+
+});
+
+
+
+
+// ===============================
+// SIDEBAR
+// ===============================
+
+
+menuBtn.onclick=()=>{
+
+sidebar.classList.add("active");
+
+overlay.classList.add("active");
+
+};
+
+
+closeSidebar.onclick=closeMenu;
+
+overlay.onclick=closeMenu;
+
+
+
+function closeMenu(){
+
+sidebar.classList.remove("active");
+
+overlay.classList.remove("active");
 
 }
 
 
 
 
-// ADD MESSAGE
+// ===============================
+// THEME SYSTEM
+// ===============================
+
+
+function setTheme(mode){
+
+if(mode==="light"){
+
+document.body.classList.add("light");
+
+localStorage.setItem(
+"theme",
+"light"
+);
+
+}
+
+else{
+
+document.body.classList.remove("light");
+
+localStorage.setItem(
+"theme",
+"dark"
+);
+
+}
+
+}
+
+
+
+const savedTheme =
+localStorage.getItem("theme");
+
+
+if(savedTheme){
+
+setTheme(savedTheme);
+
+}
+
+
+
+themeBtn.onclick=()=>{
+
+document.body.classList.toggle("light");
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains("light")
+?"light"
+:"dark"
+);
+
+};
+
+
+
+darkBtn.onclick=()=>setTheme("dark");
+
+lightBtn.onclick=()=>setTheme("light");
+
+
+
+
+
+// ===============================
+// SEND MESSAGE
+// ===============================
+
+
+sendBtn.onclick=sendMessage;
+
+
+
+input.addEventListener(
+"keydown",
+(e)=>{
+
+if(e.key==="Enter" && !e.shiftKey){
+
+e.preventDefault();
+
+sendMessage();
+
+}
+
+});
+
+
+
+
+
+
+async function sendMessage(){
+
+
+if(isGenerating)
+return;
+
+
+const text =
+input.value.trim();
+
+
+if(!text)
+return;
+
+
+
+addMessage(
+text,
+"user"
+);
+
+
+input.value="";
+
+
+welcome.style.display="none";
+
+
+
+chatHistory.push({
+
+role:"user",
+
+content:text
+
+});
+
+
+
+await askAI(text);
+
+
+
+}
+
+
+
+
+
+
+
+// ===============================
+// OPENROUTER AI
+// ===============================
+
+
+
+async function askAI(userText){
+
+
+isGenerating=true;
+
+sendBtn.disabled=true;
+
+
+typing.classList.remove("hidden");
+
+
+
+try{
+
+
+const response =
+await fetch(
+API_URL,
+{
+
+method:"POST",
+
+
+headers:{
+
+
+"Authorization":
+`Bearer ${API_KEY}`,
+
+"Content-Type":
+"application/json"
+
+},
+
+
+
+body:JSON.stringify({
+
+model:MODEL_ID,
+
+
+messages:[
+
+
+{
+
+role:"system",
+
+content:
+
+`You are Hash GPT.
+
+You were developed by Crypt Hashir.
+
+Answer professionally.
+
+Use headings, spacing, bullet points and code blocks when needed.`
+
+},
+
+
+...chatHistory
+
+
+]
+
+})
+
+
+});
+
+
+
+
+
+const data =
+await response.json();
+
+
+
+let reply;
+
+
+
+if(data.choices){
+
+reply =
+data.choices[0]
+.message
+.content;
+
+}
+
+else{
+
+reply =
+"API error. Check your API key and model ID.";
+
+}
+
+
+
+typing.classList.add("hidden");
+
+
+
+addMessage(
+reply,
+"ai"
+);
+
+
+
+chatHistory.push({
+
+role:"assistant",
+
+content:reply
+
+});
+
+
+
+}
+
+catch(error){
+
+
+typing.classList.add("hidden");
+
+
+addMessage(
+
+"Connection error. Please check your API configuration.",
+
+"ai"
+
+);
+
+
+console.error(error);
+
+
+}
+
+
+
+
+isGenerating=false;
+
+sendBtn.disabled=false;
+
+
+}
+
+
+
+
+
+
+
+
+// ===============================
+// MESSAGE DISPLAY
+// ===============================
+
+
 
 function addMessage(text,type){
 
 
-let div=document.createElement("div");
+const div =
+document.createElement("div");
 
 
-div.className="message "+type;
+div.className =
+"message "+
+(type==="user"
+?"user-message"
+:"ai-message");
 
 
-div.innerHTML=`
 
-<div class="avatar">
-
-${type==="ai"?"🤖":"👤"}
-
-</div>
+div.innerHTML =
+formatText(text);
 
 
-<div class="content">
 
-${text}
-
-</div>
-
-`;
+messages.appendChild(div);
 
 
-chatBox.appendChild(div);
 
+messages.scrollTop =
+messages.scrollHeight;
 
-chatBox.scrollTop =
-chatBox.scrollHeight;
-
-
-return div;
 
 }
 
@@ -157,155 +472,123 @@ return div;
 
 
 
+
+
+// ===============================
+// BASIC MARKDOWN FORMAT
+// ===============================
+
+
+
+function formatText(text){
+
+
+return text
+
+.replace(
+/\*\*(.*?)\*\*/g,
+"<strong>$1</strong>"
+)
+
+.replace(
+/\n/g,
+"<br>"
+)
+
+.replace(
+/`(.*?)`/g,
+"<code>$1</code>"
+);
+
+
+}
+
+
+
+
+
+
+
+// ===============================
 // NEW CHAT
+// ===============================
 
-function newChat(){
 
-chatBox.innerHTML="";
 
-addMessage(
-"New chat started.",
-"ai"
-);
+newChat.onclick=()=>{
 
-}
 
+messages.innerHTML="";
 
 
+chatHistory=[];
 
 
-// CLEAR
+welcome.style.display="block";
 
-function clearChat(){
-
-chatBox.innerHTML="";
-
-}
-
-
-
-
-
-// SETTINGS
-
-function toggleSettings(){
-
-let s=document.getElementById("settings");
-
-s.style.display =
-s.style.display==="block"
-?"none"
-:"block";
-
-}
-
-
-
-function saveSettings(){
-
-let name =
-document.getElementById("aiName").value;
-
-
-document.getElementById("aiTitle").innerText=name;
-
-
-toggleSettings();
-
-}
-
-
-
-
-
-// DARK LIGHT
-
-function toggleTheme(){
-
-document.body.classList.toggle("light");
-
-}
-
-
-
-
-// SIDEBAR
-
-function toggleSidebar(){
-
-document
-.getElementById("sidebar")
-.classList.toggle("active");
-
-}
-
-
-
-
-
-// EXPORT
-
-function exportChat(){
-
-let data =
-chatBox.innerText;
-
-
-let file =
-new Blob(
-[data],
-{type:"text/plain"}
-);
-
-
-let link=document.createElement("a");
-
-
-link.href=
-URL.createObjectURL(file);
-
-
-link.download="HashGPT.txt";
-
-
-link.click();
-
-}
-
-
-
-
-// VOICE
-
-function voiceInput(){
-
-
-if(!window.webkitSpeechRecognition){
-
-alert("Voice not supported");
-
-return;
-
-}
-
-
-let speech =
-new webkitSpeechRecognition();
-
-
-speech.lang="en-US";
-
-
-speech.start();
-
-
-
-speech.onresult=function(e){
-
-input.value =
-e.results[0][0].transcript;
 
 };
+
+
+
+
+
+
+
+// ===============================
+// AUTO RESIZE INPUT
+// ===============================
+
+
+
+input.addEventListener(
+"input",
+()=>{
+
+input.style.height="auto";
+
+
+input.style.height =
+input.scrollHeight+"px";
+
+
+});
+
+
+
+
+
+
+
+// ===============================
+// DEVELOPER QUESTION HANDLER
+// ===============================
+
+
+function checkDeveloperQuestion(text){
+
+
+const q=text.toLowerCase();
+
+
+
+if(
+
+q.includes("who developed") ||
+
+q.includes("who created") ||
+
+q.includes("developer")
+
+){
+
+
+return "Hash GPT was developed by Crypt Hashir.";
+
+}
+
+
+return null;
 
 
 }
