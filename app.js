@@ -1,5 +1,3 @@
-let chat = [];
-
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("messageInput");
 
@@ -8,111 +6,107 @@ const input = document.getElementById("messageInput");
 
 async function sendMessage(){
 
-let text = input.value.trim();
+    let text = input.value.trim();
 
-if(!text) return;
-
-
-addMessage(text,"user");
-
-input.value="";
+    if(!text) return;
 
 
-let loading = addMessage("Thinking...","ai");
+    addMessage(text,"user");
+
+    input.value="";
 
 
-try{
+    let loading = addMessage(
+        "Thinking...",
+        "ai"
+    );
 
 
-let response = await fetch(
-"https://openrouter.ai/api/v1/chat/completions",
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json",
-
-"Authorization":"Bearer "+AI_CONFIG.API_KEY
-
-},
+    try{
 
 
-body:JSON.stringify({
+        let response = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
 
-model:AI_CONFIG.MODEL,
+        method:"POST",
 
-messages:[
+        headers:{
 
-{
+        "Content-Type":"application/json",
 
-role:"system",
+        "Authorization":
+        "Bearer "+AI_CONFIG.API_KEY
 
-content:
-"You are "+AI_CONFIG.NAME+
-". You are an advanced AI assistant skilled in coding, cybersecurity, business, education and general knowledge."
-
-},
-
-
-{
-
-role:"user",
-
-content:text
-
-}
-
-]
-
-})
-
-});
+        },
 
 
+        body:JSON.stringify({
 
-let data = await response.json();
-
-
-
-loading.remove();
+        model:AI_CONFIG.MODEL,
 
 
+        messages:[
 
-if(data.choices){
+        {
+        role:"system",
+        content:
+        "You are Hash GPT, an advanced AI assistant for coding, cybersecurity, business, education and general questions."
+        },
 
-addMessage(
-data.choices[0].message.content,
-"ai"
-);
 
-}
+        {
+        role:"user",
+        content:text
+        }
 
-else{
+        ]
 
-addMessage(
-"API Error: "+JSON.stringify(data),
-"ai"
-);
 
-}
+        })
+
+
+        });
+
+
+        let data = await response.json();
+
+
+        loading.remove();
+
+
+        if(data.choices){
+
+        addMessage(
+        data.choices[0].message.content,
+        "ai"
+        );
+
+        }
+
+        else{
+
+        addMessage(
+        "API Error. Check API key or credits.",
+        "ai"
+        );
+
+        }
 
 
 
-}
+    }
 
-catch(error){
+    catch(error){
 
-loading.remove();
+        loading.remove();
 
-addMessage(
-"Connection error.",
-"ai"
-);
+        addMessage(
+        "Connection error: "+error.message,
+        "ai"
+        );
 
-}
-
+    }
 
 }
 
@@ -133,12 +127,16 @@ div.className="message "+type;
 div.innerHTML=`
 
 <div class="avatar">
-${type=="ai"?"🤖":"👤"}
+
+${type==="ai"?"🤖":"👤"}
+
 </div>
 
 
 <div class="content">
+
 ${text}
+
 </div>
 
 `;
@@ -147,7 +145,8 @@ ${text}
 chatBox.appendChild(div);
 
 
-chatBox.scrollTop=chatBox.scrollHeight;
+chatBox.scrollTop =
+chatBox.scrollHeight;
 
 
 return div;
@@ -165,7 +164,7 @@ function newChat(){
 chatBox.innerHTML="";
 
 addMessage(
-"New conversation started.",
+"New chat started.",
 "ai"
 );
 
@@ -175,7 +174,7 @@ addMessage(
 
 
 
-// CLEAR CHAT
+// CLEAR
 
 function clearChat(){
 
@@ -186,14 +185,15 @@ chatBox.innerHTML="";
 
 
 
+
 // SETTINGS
 
 function toggleSettings(){
 
-let box=document.getElementById("settings");
+let s=document.getElementById("settings");
 
-box.style.display =
-box.style.display=="block"
+s.style.display =
+s.style.display==="block"
 ?"none"
 :"block";
 
@@ -203,7 +203,7 @@ box.style.display=="block"
 
 function saveSettings(){
 
-let name=
+let name =
 document.getElementById("aiName").value;
 
 
@@ -217,25 +217,19 @@ toggleSettings();
 
 
 
-// THEME
+
+// DARK LIGHT
 
 function toggleTheme(){
 
 document.body.classList.toggle("light");
-
-localStorage.setItem(
-"theme",
-document.body.classList.contains("light")
-? "light"
-: "dark"
-);
 
 }
 
 
 
 
-// SIDEBAR MOBILE
+// SIDEBAR
 
 function toggleSidebar(){
 
@@ -249,27 +243,32 @@ document
 
 
 
-// EXPORT CHAT
+// EXPORT
 
 function exportChat(){
 
-let text=
+let data =
 chatBox.innerText;
 
 
-let file=
-new Blob([text],
-{type:"text/plain"});
+let file =
+new Blob(
+[data],
+{type:"text/plain"}
+);
 
 
-let a=document.createElement("a");
+let link=document.createElement("a");
 
-a.href=
+
+link.href=
 URL.createObjectURL(file);
 
-a.download="HashGPT-chat.txt";
 
-a.click();
+link.download="HashGPT.txt";
+
+
+link.click();
 
 }
 
@@ -281,7 +280,7 @@ a.click();
 function voiceInput(){
 
 
-if(!("webkitSpeechRecognition" in window)){
+if(!window.webkitSpeechRecognition){
 
 alert("Voice not supported");
 
@@ -303,18 +302,10 @@ speech.start();
 
 speech.onresult=function(e){
 
-input.value=
+input.value =
 e.results[0][0].transcript;
 
 };
 
 
-window.onload=function(){
-
-if(localStorage.getItem("theme")=="light"){
-
-document.body.classList.add("light");
-
 }
-
-} 
