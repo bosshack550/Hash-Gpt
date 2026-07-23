@@ -748,4 +748,18 @@ visibility:hidden;
 
 }
 
+.input-container{
+    display:flex !important;
+    position:fixed !important;
+    bottom:0 !important;
+    left:290px !important;
+    right:0 !important;
+    background:var(--bg);
+    z-index:9999 !important;
 }
+
+@media(max-width:900px){
+    .input-container{
+        left:0 !important;
+    }
+} 
