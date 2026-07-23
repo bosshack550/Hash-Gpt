@@ -4,7 +4,7 @@ const AI_CONFIG = {
     API_KEY: "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",
 
     // OpenRouter model
-    MODEL: "openai/gpt-oss-20b:free",
+    MODEL: "google/gemma-4-31b-it:free",
 
     // Default AI name
     NAME: "Hash GPT",
