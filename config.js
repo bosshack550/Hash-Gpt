@@ -1,15 +1,11 @@
 const AI_CONFIG = {
 
-    // Put your API key here
-    API_KEY: "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",
+API_KEY:"AQ.Ab8RN6JbEbOx34WZIyaXZ_y_W5Fq8kGfows0l6g98FkoSqnFzQ",
 
-    // OpenRouter model
-    MODEL: "openai/gpt-oss-20b:free",
+MODEL:"gemini-2.0-flash",
 
-    // Default AI name
-    NAME: "Hash GPT",
+NAME:"Hash GPT",
 
-    // Developer
-    CREATOR: "Crypt Hashir"
+CREATOR:"Crypt Hashir"
 
 };
