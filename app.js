@@ -3,7 +3,11 @@
 // Powered By Crypt Hashir
 // ===============================
 
+const API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
+const API_KEY = "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";
+
+const MODEL_ID = "google/gemma-4-31b-it:free";
 
 // Elements
 
