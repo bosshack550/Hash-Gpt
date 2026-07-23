@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -11,98 +12,190 @@
 
 </head>
 
+
 <body>
 
-<div class="app">
+
+<!-- Loading Screen -->
+
+<div id="loader">
+
+    <div class="loader-container">
+
+        <div class="ai-logo">
+            <div class="pulse"></div>
+        </div>
 
 
-<!-- SIDEBAR -->
+        <h1 class="hash-title">
+            Hash GPT
+        </h1>
+
+
+        <p class="powered">
+            Powered By Crypt Hashir
+        </p>
+
+
+        <div class="loading-line">
+            <span></span>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- Main Application -->
+
+<div class="app" id="app">
+
+
+<!-- Mobile Overlay -->
+
+<div id="overlay"></div>
+
+
+
+
+<!-- Sidebar -->
 
 <aside class="sidebar" id="sidebar">
 
+
+<div class="sidebar-top">
+
+
 <div class="brand">
 
-<h1>⚡ Hash GPT</h1>
+<h2>
+Hash GPT
+</h2>
 
-<p>Crypt Hashir AI</p>
+<p>
+Crypt Hashir
+</p>
+
 
 </div>
 
 
-<button class="new-chat" onclick="newChat()">
-+ New Chat
+<button id="closeSidebar">
+×
 </button>
 
-
-<div class="side-menu">
-
-<button onclick="toggleSettings()">
-⚙ Settings
-</button>
-
-<button onclick="clearChat()">
-🗑 Clear Chat
-</button>
-
-<button onclick="exportChat()">
-📥 Export Chat
-</button>
 
 </div>
 
 
-<div class="info">
 
-<p>AI Modes</p>
 
-<span>General</span>
-<span>Coding</span>
-<span>Cyber Security</span>
-<span>Business</span>
-<span>Student</span>
+
+<button class="new-chat" id="newChat">
+
+<span>+</span>
+
+New Chat
+
+</button>
+
+
+
+
+
+<div class="sidebar-content">
+
+
+<h4>
+Recent Chats
+</h4>
+
+
+<div id="history">
 
 </div>
+
+
+</div>
+
+
+
+
+
+<div class="sidebar-footer">
+
+
+<button id="themeButton">
+
+Theme
+
+</button>
+
+
+<button id="settingsButton">
+
+Settings
+
+</button>
+
+
+</div>
+
 
 
 </aside>
 
 
 
-<!-- MAIN AREA -->
 
-<main class="main">
+
+
+
+<!-- Main Chat Area -->
+
+<main class="chat-area">
 
 
 <header class="header">
 
 
-<div>
+<button id="menuButton">
 
-<h2 id="aiTitle">
+☰
+
+</button>
+
+
+
+
+<div class="header-brand">
+
+
+<h3>
 Hash GPT
-</h2>
+</h3>
 
-<p id="status">
-● Online
+
+<p>
+AI Assistant
 </p>
 
-</div>
-
-
-
-<div class="header-buttons">
-
-<button onclick="toggleSidebar()">
-☰
-</button>
-
-
-<button onclick="toggleTheme()">
-🌙
-</button>
-
 
 </div>
+
+
+
+
+<div class="status">
+
+<span></span>
+
+Online
+
+</div>
+
 
 
 </header>
@@ -111,241 +204,346 @@ Hash GPT
 
 
 
-<!-- CHAT AREA -->
+<!-- Welcome Section -->
 
-<div id="chatBox">
+<section id="welcome" class="welcome">
 
 
-<div class="welcome">
+<div class="welcome-box">
 
-<h2>
-Welcome to Hash GPT 👋
-</h2>
+
+<h1>
+Hash GPT
+</h1>
 
 
 <p>
-Your AI assistant for coding, cybersecurity,
-business and learning.
+Your intelligent AI assistant
 </p>
 
 
+<span>
+Developed by Crypt Hashir
+</span>
+
+
 </div>
 
 
 
-</div>
 
 
+<div class="suggestion-box">
 
 
-
-
-<!-- INPUT AREA -->
-
-
-<div class="input-area">
-
-
-<button onclick="document.getElementById('file').click()">
-📎
+<button>
+Learn Cybersecurity
 </button>
 
 
-<input 
-type="file"
-id="file"
-hidden
->
-
-
-
-<button onclick="voiceInput()">
-🎤
+<button>
+Write Code
 </button>
 
 
-
-<textarea 
-id="messageInput"
-placeholder="Message Hash GPT..."
-rows="1">
-</textarea>
+<button>
+Business Advice
+</button>
 
 
-
-<button 
-class="send"
-onclick="sendMessage()">
-➤
+<button>
+Study Help
 </button>
 
 
 </div>
+
+
+</section>
+
+
+
+
+
+<!-- Messages -->
+
+<div id="messages" class="messages">
+
+</div>
+
+
+<!-- Typing Indicator -->
+
+<div id="typing" class="typing hidden">
+
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+
+    <span>
+        Hash GPT is thinking...
+    </span>
+
+</div>
+
+
+
+
+
+<!-- Input Area -->
+
+<div class="input-container">
+
+
+<textarea
+
+id="userInput"
+
+placeholder="Ask Hash GPT anything..."
+
+rows="1"
+
+></textarea>
+
+
+
+
+
+<button id="sendButton">
+
+Send
+
+</button>
+
+
+
+</div>
+
 
 
 
 </main>
 
 
+</div>
 
 
 
-<!-- SETTINGS PANEL -->
 
 
-<div class="settings" id="settings">
 
+
+<!-- Settings Panel -->
+
+
+<div id="settingsPanel" class="panel">
+
+
+<div class="panel-header">
 
 <h2>
-⚙ Settings
+Settings
 </h2>
 
 
-<label>
-AI Name
-</label>
-
-
-<input 
-id="aiName"
-value="Hash GPT"
->
-
-
-
-<label>
-Personality
-</label>
-
-
-<select id="personality">
-
-
-<option>
-General AI
-</option>
-
-
-<option>
-Cyber Security Expert
-</option>
-
-
-<option>
-Coding Expert
-</option>
-
-
-<option>
-Business Advisor
-</option>
-
-
-<option>
-Student Tutor
-</option>
-
-
-</select>
-
-
-
-<label>
-Model
-</label>
-
-
-<select id="model">
-
-
-<option>
-openai/gpt-4o-mini
-</option>
-
-
-<option>
-deepseek/deepseek-chat
-</option>
-
-
-<option>
-google/gemini
-</option>
-
-
-</select>
-
-
-
-<button onclick="saveSettings()">
-Save
+<button id="closeSettings">
+×
 </button>
 
 
-<button onclick="toggleSettings()">
+</div>
+
+
+
+
+
+<div class="setting">
+
+
+<h3>
+Theme
+</h3>
+
+
+<div class="theme-buttons">
+
+
+<button id="darkTheme">
+
+Dark Mode
+
+</button>
+
+
+<button id="lightTheme">
+
+Light Mode
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="setting">
+
+
+<h3>
+Developer
+</h3>
+
+
+<p>
+Crypt Hashir
+</p>
+
+
+<span>
+Creator of Hash GPT
+</span>
+
+
+</div>
+
+
+
+
+
+
+<div class="setting">
+
+
+<h3>
+Features
+</h3>
+
+
+<ul>
+
+<li>Text based AI assistant</li>
+
+<li>Coding assistance</li>
+
+<li>Cybersecurity learning</li>
+
+<li>Business guidance</li>
+
+<li>Student support</li>
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- About Modal -->
+
+
+<div id="aboutModal" class="modal">
+
+
+<div class="modal-box">
+
+
+<button id="closeAbout">
+
+×
+
+</button>
+
+
+<h2>
+Hash GPT
+</h2>
+
+
+<p>
+Powered By Crypt Hashir
+</p>
+
+
+<p>
+An advanced AI assistant experience.
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Error Notification -->
+
+
+<div id="errorMessage" class="error hidden">
+
+
+<p id="errorText">
+
+</p>
+
+
+<button id="errorClose">
+
 Close
+
 </button>
 
 
-  </div>
-
-  <!-- MESSAGE TEMPLATE AREA -->
-
-<template id="userTemplate">
-
-<div class="message user">
-
-<div class="avatar">
-👤
-</div>
-
-<div class="content"></div>
-
-</div>
-
-</template>
-
-
-
-<template id="aiTemplate">
-
-<div class="message ai">
-
-<div class="avatar">
-🤖
-</div>
-
-<div class="content"></div>
-
-</div>
-
-</template>
-
-
-
-
-
-<!-- LOADING -->
-
-<div id="loader" class="loader">
-
-<span></span>
-<span></span>
-<span></span>
-
 </div>
 
 
 
-</div>
+<!-- Footer -->
+
+<footer class="footer">
+
+
+<p>
+Hash GPT
+</p>
+
+
+<span>
+Developed by Crypt Hashir
+</span>
+
+
+</footer>
 
 
 
-<!-- JAVASCRIPT FILES -->
 
-<script src="config.js"></script>
+
+
+
+
+<!-- App Script -->
 
 <script src="app.js"></script>
+
 
 
 </body>
