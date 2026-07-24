@@ -389,9 +389,7 @@ data.candidates[0]
 else{
 
 
-reply =
-"Gemini API error. Check your API key or model.";
-
+reply = JSON.stringify(data);
 
 }
 
