@@ -9,9 +9,9 @@
 // GEMINI CONFIG
 // ===============================
 
-const GEMINI_KEY = AQ.Ab8RN6JbEbOx34WZIyaXZ_y_W5Fq8kGfows0l6g98FkoSqnFzQ;
+const GEMINI_KEY = "AQ.Ab8RN6JbEbOx34WZIyaXZ_y_W5Fq8kGfows0l6g98FkoSqnFzQ";
 
-const GEMINI_MODEL = gemini-2.0-flash;
+const GEMINI_MODEL = "gemini-2.0-flash";
 
 const API_URL =
 `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`;
