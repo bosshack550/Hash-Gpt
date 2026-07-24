@@ -1,6 +1,6 @@
 const AI_CONFIG = {
 
-API_KEY:"AQ.Ab8RN6JbEbOx34WZIyaXZ_y_W5Fq8kGfows0l6g98FkoSqnFzQ",
+API_KEY:"AQ.Ab8RN6KOYjV2832GtnfratLwdXzKyeWULat1-e3PDx1wObU8uw",
 
 MODEL:"gemini-2.5-flash",
 
